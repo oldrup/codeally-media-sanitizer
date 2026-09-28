@@ -5,7 +5,7 @@ declare(strict_types=1);
  * Plugin Name:       Codeally Media Sanitizer & WebP Tweaks
  * Plugin URI:        https://github.com/oldrup/codeally-media-sanitizer-webp-tweaks
  * Description:       Sanitizes upload filenames with Danish support, sets WebP quality to 70, purges scaled originals, and aligns MIME types.
- * Version:           1.0.3
+ * Version:           1.1.0
  * Requires at least: 7.1
  * Requires PHP:      8.2
  * Author:            Bjarne Oldrup
@@ -68,18 +68,19 @@ add_filter( 'wp_handle_upload_prefilter', 'cdly_clean_uploaded_filename' );
 add_filter( 'wp_handle_sideload_prefilter', 'cdly_clean_uploaded_filename' );
 
 /**
- * Prefilter upload array to sanitize filenames and store original title.
+ * Prefilter upload array to sanitize filenames and store original title in memory.
  *
  * @param array<string, mixed> $file Uploaded file data.
  * @return array<string, mixed>
  */
 function cdly_clean_uploaded_filename( array $file ) : array {
-    $original = pathinfo( $file['name'], PATHINFO_FILENAME );
-    if ( is_string( $original ) ) {
-        set_transient( '_cdly_original_filename', $original, 60 );
-    }
-
+    $original     = pathinfo( $file['name'], PATHINFO_FILENAME );
     $file['name'] = cdly_clean_filename( $file['name'] );
+
+    if ( is_string( $original ) && '' !== $original ) {
+        $clean_key = pathinfo( $file['name'], PATHINFO_FILENAME );
+        $GLOBALS['cdly_original_titles'][ $clean_key ] = $original;
+    }
 
     return $file;
 }
@@ -99,8 +100,8 @@ function cdly_clean_filename( string $filename ) : string {
     // Replace spaces with dashes
     $clean = str_replace( ' ', '-', $name );
 
-    // Danish & international character replacements
-    $specific_replacements = array(
+    // Danish & international character replacements (static array prevents re-allocation on bulk uploads)
+    static $specific_replacements = array(
         'Æ' => 'ae', 'æ' => 'ae',
         'Ø' => 'oe', 'ø' => 'oe',
         'Å' => 'aa', 'å' => 'aa',
@@ -135,15 +136,19 @@ function cdly_clean_filename( string $filename ) : string {
  * Set original, un-sanitized string as attachment title in Media Library.
  */
 add_action( 'add_attachment', static function( int $attachment_id ) : void {
-    $original = get_transient( '_cdly_original_filename' );
+    $file = get_attached_file( $attachment_id );
 
-    if ( $original ) {
-        wp_update_post( array(
-            'ID'         => $attachment_id,
-            'post_title' => $original,
-        ) );
+    if ( is_string( $file ) ) {
+        $clean_key = pathinfo( $file, PATHINFO_FILENAME );
 
-        delete_transient( '_cdly_original_filename' );
+        if ( isset( $GLOBALS['cdly_original_titles'][ $clean_key ] ) ) {
+            wp_update_post( array(
+                'ID'         => $attachment_id,
+                'post_title' => $GLOBALS['cdly_original_titles'][ $clean_key ],
+            ) );
+
+            unset( $GLOBALS['cdly_original_titles'][ $clean_key ] );
+        }
     }
 } );
 
@@ -177,6 +182,9 @@ add_filter( 'wp_generate_attachment_metadata', static function( array $metadata,
         $original_path = path_join( $upload_dir['basedir'], path_join( $file_dir, $metadata['original_image'] ) );
 
         if ( file_exists( $original_path ) && is_file( $original_path ) ) {
+            if ( ! function_exists( 'wp_delete_file' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
+            }
             wp_delete_file( $original_path );
         }
 
