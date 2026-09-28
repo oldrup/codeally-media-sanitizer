@@ -5,7 +5,7 @@ declare(strict_types=1);
  * Plugin Name:       Codeally Media Sanitizer & WebP Tweaks
  * Plugin URI:        https://github.com/oldrup/codeally-media-sanitizer-webp-tweaks
  * Description:       Sanitizes upload filenames with Danish support, sets WebP quality to 70, purges scaled originals, and aligns MIME types.
- * Version:           1.0.0
+ * Version:           1.0.3
  * Requires at least: 7.1
  * Requires PHP:      8.2
  * Author:            Bjarne Oldrup
@@ -86,6 +86,10 @@ function cdly_clean_uploaded_filename( array $file ) : array {
 
 /**
  * Sanitize filename string with character mapping and Danish transliteration.
+ *
+ * Filename character mapping adapted and expanded from Clean Image Filenames.
+ * @link https://wordpress.org/plugins/clean-image-filenames/
+ * @license GPL-2.0-or-later
  */
 function cdly_clean_filename( string $filename ) : string {
     $info = pathinfo( $filename );
