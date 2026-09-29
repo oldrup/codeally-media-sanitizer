@@ -2,17 +2,17 @@
 declare(strict_types=1);
 
 /**
- * Plugin Name:       Codeally Media Sanitizer & WebP Tweaks
- * Plugin URI:        https://github.com/oldrup/codeally-media-sanitizer-webp-tweaks
+ * Plugin Name:       Codeally Media Sanitizer
+ * Plugin URI:        https://github.com/oldrup/codeally-media-sanitizer
  * Description:       Sanitizes upload filenames with Danish support, sets WebP quality to 70, purges scaled originals, and aligns MIME types.
- * Version:           1.1.0
- * Requires at least: 7.1
+ * Version:           1.2.0
+ * Requires at least: 6.9
  * Requires PHP:      8.2
  * Author:            Bjarne Oldrup
  * Author URI:        https://oldrup.dk/
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       codeally-media-sanitizer-webp-tweaks
+ * Text Domain:       codeally-media-sanitizer
  * Tags:              media, webp, performance, sanitization, image-optimization
  */
 
@@ -45,9 +45,9 @@ add_action( 'admin_notices', static function() : void {
     if ( ! $mif_active ) {
         $message = sprintf(
             /* translators: 1: Plugin name, 2: Link to Modern Image Formats plugin */
-            __( '%1$s is active. For automatic WebP conversion, ensure the %2$s plugin is installed and configured to WebP under Settings > Media.', 'codeally-media-sanitizer-webp-tweaks' ),
-            '<strong>' . esc_html__( 'Codeally Media Sanitizer', 'codeally-media-sanitizer-webp-tweaks' ) . '</strong>',
-            '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=webp-uploads' ) ) . '" target="_blank" rel="noopener">' . esc_html__( 'Modern Image Formats', 'codeally-media-sanitizer-webp-tweaks' ) . '</a>'
+            __( '%1$s is active. For automatic WebP conversion, ensure the %2$s plugin is installed and configured to WebP under Settings > Media.', 'codeally-media-sanitizer' ),
+            '<strong>' . esc_html__( 'Codeally Media Sanitizer', 'codeally-media-sanitizer' ) . '</strong>',
+            '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=webp-uploads' ) ) . '" target="_blank" rel="noopener">' . esc_html__( 'Modern Image Formats', 'codeally-media-sanitizer' ) . '</a>'
         );
 
         wp_admin_notice(

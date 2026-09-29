@@ -1,28 +1,28 @@
-=== Codeally Media Sanitizer & WebP Tweaks ===
+=== Codeally Media Sanitizer ===
 Contributors: oldrup
 Tags: media, webp, performance, sanitization, image-optimization
-Requires at least: 7.1
+Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Sanitizes upload filenames with Danish support, sets WebP quality to 70, purges scaled originals, and aligns MIME types.
 
 == Description ==
-Codeally Media Sanitizer & WebP Tweaks optimizes WordPress media handling by sanitizing uploaded filenames with full Danish character support, preserving human-readable Media Library post titles, enforcing WebP quality at 70%, purging raw unscaled files (>2560px), and synchronizing database MIME types when images convert to WebP.
+Codeally Media Sanitizer optimizes WordPress media handling by sanitizing uploaded filenames with full international character support, preserving human-readable Media Library post titles, enforcing WebP quality at 70%, purging raw unscaled files (>2560px), and synchronizing database MIME types when images convert to WebP.
 
 Developed by [Bjarne Oldrup](https://oldrup.dk/) and sponsored by [Codeally](https://codeally.dk/).
 Filename sanitization character mapping adapted and expanded from [Clean Image Filenames](https://wordpress.org/plugins/clean-image-filenames/).
 
 == Frequently Asked Questions ==
 
-=== Why should I use Codeally Media Sanitizer & WebP Tweaks? ===
+=== Why should I use Codeally Media Sanitizer? ===
 - **Clean & Safe URLs:** Special characters (like Danish æ, ø, å) and spaces in raw filenames create messy percent-encoded URLs and potential server path issues.
 - **Readable Media Titles:** Standard filename cleaning alters the visible attachment title; this plugin preserves the original human-readable string as the Media Library post title.
-- **Storage Preservation:** Automatically deletes the oversized original unscaled file (>2560px) once WordPress generates the `-scaled` master image, saving server disk space.
-- **WebP Quality Control:** Forces WebP image sub-sizes to process at an optimized baseline quality of 70% using a high-priority filter.
+- **Storage Preservation:** Automatically deletes any oversized original unscaled file (>2560px) once WordPress generates the `-scaled` master image, saving server disk space.
+- **WebP Quality Control:** Forces WebP image sub-sizes to process at an optimized baseline quality of 70%.
 - **Database MIME Alignment:** Ensures `post_mime_type` in `wp_posts` is updated to `image/webp` when the physical file on disk is converted to `.webp`.
 
 === Who is this plugin intended for? ===
@@ -47,15 +47,15 @@ WebP is natively supported by over 98% of modern web browsers across desktop and
 - **For brand-new websites:** Going pure WebP is highly recommended.
 - **For existing websites with legacy content:** Unless you plan to run a database search-and-replace to update `.jpg` URLs to `.webp` in `post_content`, keep **"Output fallback images"** checked under **Settings > Media** to maintain total backwards compatibility for older posts.
 
-=== What free alternatives exist for bulk converting legacy images on existing sites? ===
-If you prefer a 1-click bulk conversion tool that preserves original files without needing manual database edits, consider these free, open-source plugins from WordPress.org:
-- **EWWW Image Optimizer:** Offers unlimited free local WebP conversion without credit limits, serving WebP via `<picture>` rewrite rules while leaving original files untouched.
-- **Converter for Media:** Free 1-click bulk conversion for WebP, storing optimized files separately in `/uploads-webpc/` to avoid breaking existing post references.
-- **WebP Express:** A 100% free and open-source plugin with no commercial upsells, serving WebP dynamically via `.htaccess` or server rewrite rules.
+=== What alternatives exist for bulk converting legacy images on existing sites? ===
+If you prefer a 1-click bulk conversion tool that preserves original files without needing manual database edits, consider these open-source plugins from WordPress.org:
+- **EWWW Image Optimizer:** Offers local WebP conversion serving WebP via `<picture>` rewrite rules while leaving original files untouched.
+- **Converter for Media:** 1-click bulk conversion for WebP, storing optimized files separately in `/uploads-webpc/` to avoid breaking existing post references.
+- **WebP Express:** A free and open-source plugin serving WebP dynamically via `.htaccess` or server rewrite rules.
 
 === How does this plugin work with form plugins like WS Form? ===
 Filename sanitization is intentionally bypassed for form uploads to respect custom form naming rules and variables. However, WebP conversion, 70% quality limits, and purging of oversized raw originals (>2560px) still execute automatically.
-- **Note:** This behavior has been lightly verified with WS Form Pro, but has not been tested with other form plugins.
+- **Note:** This behavior has been lightly verified with WS Form, but has not been tested with other form plugins.
 
 === Where can I find official documentation and references? ===
 - [WordPress Performance Team: Modern Image Formats Plugin](https://wordpress.org/plugins/webp-uploads/)
@@ -67,11 +67,14 @@ Filename sanitization is intentionally bypassed for form uploads to respect cust
 2. Activate the plugin/snippet through the WordPress admin.
 
 == Changelog ==
+= 1.2.0 =
+- Rename plugin to Codeally Media Sanitizer
+
 = 1.1.0 =
 - Added defensive `wp-admin/includes/file.php` inclusion before purging unscaled raw originals to prevent REST/front-end execution crashes.
 - Replaced database transients with a zero-DB in-memory lookup table (`$GLOBALS`) for title retention and bulk-upload safety.
 - Converted character sanitization lookup array to static memory allocation for optimized execution speed.
-- Added FAQ section describing form plugin behavior and light compatibility verification with WS Form Pro.
+- Added FAQ section describing form plugin behavior and light compatibility verification with WS Form.
 
 = 1.0.3 =
 - Updated FAQ recommendations to highlight free and open-source bulk image optimization plugins.
