@@ -4,7 +4,7 @@ Tags: media, webp, performance, sanitization, image-optimization
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,32 +67,8 @@ Filename sanitization is intentionally bypassed for form uploads to respect cust
 2. Activate the plugin/snippet through the WordPress admin.
 
 == Changelog ==
-= 1.2.2 =
-- Add author and contributor in headers
-
-= 1.2.1 =
-- Add screenshots
-
-= 1.2.0 =
-- Rename plugin to Codeally Media Sanitizer
-
-= 1.1.0 =
-- Added defensive `wp-admin/includes/file.php` inclusion before purging unscaled raw originals to prevent REST/front-end execution crashes.
-- Replaced database transients with a zero-DB in-memory lookup table (`$GLOBALS`) for title retention and bulk-upload safety.
-- Converted character sanitization lookup array to static memory allocation for optimized execution speed.
-- Added FAQ section describing form plugin behavior and light compatibility verification with WS Form.
-
-= 1.0.3 =
-- Updated FAQ recommendations to highlight free and open-source bulk image optimization plugins.
-
-= 1.0.2 =
-- Expanded FAQ documentation regarding thumbnail regeneration, fallback image behavior, and existing media workflows.
-
-= 1.0.1 =
-- Added inline and readme attribution credit for Clean Image Filenames.
-
-= 1.0.0 =
-- Initial release.
+= 1.2.3 =
+- First public release
 
 == Screenshots ==
 1. 4700 KB - Standard jpeg format, default quality 82, original kept

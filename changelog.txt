@@ -1,0 +1,27 @@
+== Changelog ==
+= 1.2.2 =
+- Add author and contributor in headers
+
+= 1.2.1 =
+- Add screenshots
+
+= 1.2.0 =
+- Rename plugin to Codeally Media Sanitizer
+
+= 1.1.0 =
+- Added defensive `wp-admin/includes/file.php` inclusion before purging unscaled raw originals to prevent REST/front-end execution crashes.
+- Replaced database transients with a zero-DB in-memory lookup table (`$GLOBALS`) for title retention and bulk-upload safety.
+- Converted character sanitization lookup array to static memory allocation for optimized execution speed.
+- Added FAQ section describing form plugin behavior and light compatibility verification with WS Form.
+
+= 1.0.3 =
+- Updated FAQ recommendations to highlight free and open-source bulk image optimization plugins.
+
+= 1.0.2 =
+- Expanded FAQ documentation regarding thumbnail regeneration, fallback image behavior, and existing media workflows.
+
+= 1.0.1 =
+- Added inline and readme attribution credit for Clean Image Filenames.
+
+= 1.0.0 =
+- Initial release.
