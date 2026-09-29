@@ -4,7 +4,7 @@ Tags: media, webp, performance, sanitization, image-optimization
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,9 @@ Filename sanitization is intentionally bypassed for form uploads to respect cust
 2. Activate the plugin/snippet through the WordPress admin.
 
 == Changelog ==
+= 1.2.1 =
+- Add screenshots
+
 = 1.2.0 =
 - Rename plugin to Codeally Media Sanitizer
 
@@ -87,3 +90,15 @@ Filename sanitization is intentionally bypassed for form uploads to respect cust
 
 = 1.0.0 =
 - Initial release.
+
+== Screenshots ==
+1. 4700 KB - Standard jpeg format, default quality 82, original kept
+2. 4000 KB - Modern File Formats enabled, WebP, default quality 82, original kept
+3.  300 KB - Codeally Media Sanitizer enabled, WebP, baseline quality 70, original kept
+4. Modern File Formats recommended settings used: WebP, no fallback
+
+== Screenshots ==
+1. screenshot-1.png: Standard JPEG format, default quality 82, original file kept, total 4700 KB.
+2. screenshot-2.png: Modern Image Formats enabled, WebP quality 82, original kept, total 4000 KB.
+3. screenshot-3.png: Codeally Media Sanitize enaled, WebP quality 70, original purged, total 300 KB.
+4. screenshot-4.png: Used settings under Settings > Media: WebP without fallback JPEG output.
