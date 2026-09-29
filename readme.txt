@@ -4,7 +4,7 @@ Tags: media, webp, performance, sanitization, image-optimization
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,9 @@ Filename sanitization is intentionally bypassed for form uploads to respect cust
 2. Activate the plugin/snippet through the WordPress admin.
 
 == Changelog ==
+= 1.2.2 =
+- Add author and contributor in headers
+
 = 1.2.1 =
 - Add screenshots
 
